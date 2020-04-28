@@ -15,13 +15,14 @@ result1 = 0
 sum = 0
 for i in range(1,101):
     sum += i
-result1 = sum * sum  # 합의 제곱
+result1 = sum * sum
 
 # 제곱의 합
 result2 = 0
 for i in range(1,101):
     result2 += i * i
 
+# 합의 제곱과 제곱의 합의 차
 if result1 < result2:
     print(result2 - result1)
 else:
