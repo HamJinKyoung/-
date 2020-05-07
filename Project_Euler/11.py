@@ -58,7 +58,7 @@ def width(matrix):    # 가로방향
                 max = mul
     return max
 
-print("가로 최대:", width(matrix))
+# print("가로 최대:", width(matrix))
 
 def height(matrix):   # 세로방향
     max = 0
@@ -69,9 +69,9 @@ def height(matrix):   # 세로방향
                 max = mul
     return max
 
-print("세로 최대:", height(matrix))
+# print("세로 최대:", height(matrix))
 
-def diagonal(matrix): # 대각선(\)방향
+def diagonal_down(matrix): # 아래 대각선(\)방향
     max = 0
     # 가운데
     for i in range(17):
@@ -79,22 +79,56 @@ def diagonal(matrix): # 대각선(\)방향
         if max < mul:
             max = mul
 
-    # 왼쪽부분
-    for i in range(1,17):
-        for j in range(16):
+    # 왼쪽
+    times = 0
+    for i in range(16,1,-1):
+        times += 1
+        for j in range(times):
             mul = matrix[i][j] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3]
             if max < mul:
                 max = mul
-
-    # 오른쪽부분
-    for i in range(16):
-        for j in range(1,17):
-            mul = matrix[i][i] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3]
+    
+    # 오른쪽
+    times = 17
+    for i in range(0,17):
+        times -= 1
+        for j in range(times):
+            mul = matrix[i][j] * matrix[i+1][j+1] * matrix[i+2][j+2] * matrix[i+3][j+3]
             if max < mul:
                 max = mul
 
     return max
 
-print("대각선 최대:", diagonal(matrix))
+# print("아래 대각선 최대:", diagonal_down(matrix))
 
-print("답:", max(width(matrix), height(matrix), diagonal(matrix)))
+def diagonal_up(matrix): # 위 대각선(/)방향
+    max = 0
+    # 가운데
+    for i in range(19,4,-1):
+        mul = matrix[i][19-i] * matrix[i-1][19-i+1] * matrix[i-2][19-i+2] * matrix[i-3][19-i+3]
+        if max < mul:
+            max = mul
+
+    # 왼쪽
+    times = 0
+    for i in range(3,19):
+        times += 1
+        for j in range(times):
+            mul = matrix[i][j] * matrix[i-1][j+1] * matrix[i-2][j+2] * matrix[i-3][j+3]
+            if max < mul:
+                max = mul
+    
+    # 오른쪽
+    times = 17
+    for i in range(19,4,-1):
+        times -= 1
+        for j in range(1,times):
+            mul = matrix[i][j] * matrix[i-1][j+1] * matrix[i-2][j+2] * matrix[i-3][j+3]
+            if max < mul:
+                max = mul
+
+    return max
+
+# print("위 대각선 최대:", diagonal_up(matrix))
+
+print("답:", max(width(matrix), height(matrix), diagonal_down(matrix), diagonal_up(matrix)))
